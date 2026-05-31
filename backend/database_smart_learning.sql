@@ -1,5 +1,6 @@
-﻿-- Smart learning merge layer from the LLM learning system.
--- Run after the original question_bank schema and upgrade scripts.
+﻿-- Smart learning module tables.
+-- Use this script only when an existing database is missing the smart learning tables.
+-- New deployments can use database_full_init.sql directly.
 
 CREATE TABLE IF NOT EXISTS qb_knowledge_point (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -48,3 +49,4 @@ CREATE TABLE IF NOT EXISTS qb_learning_behavior (
   KEY idx_behavior_kp (knowledge_point_id),
   KEY idx_behavior_tag (tag_id)
 );
+

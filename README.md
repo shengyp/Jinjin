@@ -16,16 +16,16 @@
 
 ### 核心能力
 
-- **题库管理**：支持题目新增、编辑、发布、归档、标签绑定和题库审核。
-- **试卷与作业考试**：支持组卷、发布作业/考试、设置班级或学生范围、查看提交情况。
-- **学生在线作答**：支持学生完成作业、考试和题库练习，并生成作答记录。
-- **成绩复核与申诉**：支持教师人工复核，学生可提交成绩申诉。
-- **学习统计**：基于学生作答数据统计错题、掌握度和学习表现。
-- **知识画像**：根据知识点和标签掌握情况展示学生学习状态。
-- **智能推荐**：结合薄弱知识点推荐学习资源和练习内容。
-- **知识图谱抽取**：支持上传课程资料，通过大语言模型抽取知识点之间的先修关系。
-- **知识关系标定**：管理员可手动新增、编辑和删除知识点先修关系。
-- **个性化练习**：根据学生薄弱知识点生成更有针对性的练习计划。
+- 题库管理：支持题目新增、编辑、发布、归档、标签绑定和题库审核。
+- 试卷与作业考试：支持组卷、发布作业/考试、设置班级或学生范围、查看提交情况。
+- 学生在线作答：支持学生完成作业、考试和题库练习，并生成作答记录。
+- 成绩复核与申诉：支持教师人工复核，学生可提交成绩申诉。
+- 学习统计：基于学生作答数据统计错题、掌握度和学习表现。
+- 知识画像：根据知识点和标签掌握情况展示学生学习状态。
+- 智能推荐：结合薄弱知识点推荐学习资源和练习内容。
+- 知识图谱抽取：支持上传课程资料，通过大语言模型抽取知识点之间的先修关系。
+- 知识关系标定：管理员可手动新增、编辑和删除知识点先修关系。
+- 个性化练习：根据学生薄弱知识点生成更有针对性的练习计划。
 
 ### 技术栈
 
@@ -33,22 +33,6 @@
 - 前端：Vue 3、Vite、Pinia、Vue Router、Element Plus
 - 数据库：MySQL 8.x
 - 大模型：通过后端配置调用通义千问、DeepSeek、ERNIE 等模型服务
-
-### 项目结构
-
-```text
-.
-├── backend/                         后端 Spring Boot 项目
-│   ├── src/main/java/                后端业务代码
-│   ├── src/main/resources/           后端配置文件
-│   ├── question_bank_full_init.sql   完整数据库初始化脚本
-│   └── upgrade_*.sql                 数据库升级脚本
-├── frontend/                         前端 Vue 项目
-│   ├── src/                          前端源码
-│   ├── public/                       静态资源
-│   └── package.json                  前端依赖与脚本
-└── README.md
-```
 
 ## 部署使用
 
@@ -59,24 +43,60 @@
 - Node.js 20.19+ 或 22.12+
 - MySQL 8.x
 
-创建数据库：
+### 数据库部署
+
+数据库脚本位于 `backend/` 目录。当前部署只需要关注以下三个脚本：
+
+```text
+backend/database_full_init.sql
+backend/database_smart_learning.sql
+backend/database_knowledge_graph.sql
+```
+
+三个脚本的用途如下：
+
+| 文件 | 用途 |
+| --- | --- |
+| `database_full_init.sql` | 完整数据库初始化脚本。新部署系统时优先执行这个文件。 |
+| `database_smart_learning.sql` | 智能学习相关表补充脚本。仅在已有旧数据库缺少知识点、学习资源、学习行为等表时执行。 |
+| `database_knowledge_graph.sql` | 知识图谱关系表补充脚本。仅在已有旧数据库缺少 `qb_knowledge_relation` 表时执行。 |
+
+新部署时，先创建数据库：
 
 ```sql
 CREATE DATABASE question_bank DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-导入完整数据库脚本：
+然后执行完整初始化脚本：
 
 ```bash
-mysql -u root -p question_bank < backend/question_bank_full_init.sql
+mysql -u root -p question_bank < backend/database_full_init.sql
 ```
 
-如果是在已有旧数据库上补充智能学习和知识图谱功能，可按需要执行升级脚本：
+如果数据库已经存在，并且只缺少智能学习相关表，可以执行：
 
 ```bash
-mysql -u root -p question_bank < backend/upgrade_20260528_smart_learning_merge.sql
-mysql -u root -p question_bank < backend/upgrade_20260529_knowledge_graph_personalized_practice.sql
+mysql -u root -p question_bank < backend/database_smart_learning.sql
 ```
+
+如果数据库已经存在，并且只缺少知识图谱关系表，可以执行：
+
+```bash
+mysql -u root -p question_bank < backend/database_knowledge_graph.sql
+```
+
+当前系统主要使用到的智能学习相关表包括：
+
+```text
+qb_tag
+qb_knowledge_point
+qb_knowledge_relation
+qb_learning_resource
+qb_learning_behavior
+qb_tag_mastery
+```
+
+### 后端配置
 
 修改后端配置文件：
 
@@ -102,20 +122,22 @@ app.llm.baidu.api-key-file=E:/keys/BaiDu_key.txt
 
 密钥文件内容只需要填写对应平台的 API Key。
 
-启动后端：
+### 启动后端
 
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-启动前端：
+### 启动前端
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
+### 打包部署
 
 前端打包：
 

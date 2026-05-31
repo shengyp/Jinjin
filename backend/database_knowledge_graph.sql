@@ -1,3 +1,7 @@
+﻿-- Knowledge graph relation table.
+-- Use this script only when an existing database is missing qb_knowledge_relation.
+-- New deployments can use database_full_init.sql directly.
+
 USE question_bank;
 
 CREATE TABLE IF NOT EXISTS qb_knowledge_relation (
@@ -17,3 +21,4 @@ CREATE TABLE IF NOT EXISTS qb_knowledge_relation (
   KEY idx_knowledge_relation_source (source_id, relation_type, is_deleted),
   KEY idx_knowledge_relation_target (target_id, relation_type, is_deleted)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
