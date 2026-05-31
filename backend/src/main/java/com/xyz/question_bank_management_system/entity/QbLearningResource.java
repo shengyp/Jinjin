@@ -1,0 +1,23 @@
+package com.xyz.question_bank_management_system.entity;
+
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class QbLearningResource {
+    private Long id;
+    private String title;
+    private String resourceType;
+    private String url;
+    private String summary;
+    private Long knowledgePointId;
+    private Long tagId;
+    private Long createdBy;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Integer isDeleted;
+
+    private String knowledgePointName;
+    private String tagName;
+}
