@@ -1,0 +1,165 @@
+:root {
+  color-scheme: light;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --app-bg: #f5f8f6;
+  --app-surface: #ffffff;
+  --app-surface-soft: #f9fbfa;
+  --app-border: #dde8e3;
+  --app-border-strong: #c7d8d1;
+  --app-text: #24342f;
+  --app-text-soft: #687a73;
+  --app-primary: #4f8f7b;
+  --app-primary-dark: #2f6f5e;
+  --app-primary-soft: #e9f3ef;
+  --app-accent: #8aa7c2;
+  --app-warm: #d7b98c;
+  --el-color-primary: #4f8f7b;
+  --el-color-primary-light-3: #7fb09f;
+  --el-color-primary-light-5: #a7cabd;
+  --el-color-primary-light-7: #cbe0d8;
+  --el-color-primary-light-8: #dcebe6;
+  --el-color-primary-light-9: #edf6f2;
+  --el-color-primary-dark-2: #2f6f5e;
+  --el-border-radius-base: 8px;
+  --el-border-color: var(--app-border);
+  --el-border-color-light: #e8efec;
+  --el-text-color-primary: var(--app-text);
+  --el-text-color-regular: #4e615a;
+  --el-text-color-secondary: var(--app-text-soft);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    linear-gradient(90deg, rgba(79, 143, 123, 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(79, 143, 123, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(233, 243, 239, 0.78), rgba(250, 252, 251, 0.9) 260px),
+    var(--app-bg);
+  background-size: 28px 28px, 28px 28px, auto, auto;
+  color: var(--app-text);
+}
+
+a {
+  color: inherit;
+}
+
+.page-card {
+  background: var(--app-surface);
+  border-radius: 8px;
+  border: 1px solid var(--app-border);
+  box-shadow: 0 10px 26px rgba(53, 83, 73, 0.06);
+  margin-bottom: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  margin: -1px -1px 14px;
+  background: linear-gradient(90deg, var(--app-primary), var(--app-accent) 54%, var(--app-warm));
+  opacity: 0.72;
+}
+
+.page-card .card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--app-text);
+}
+
+.page-card .card-title::before {
+  content: '';
+  width: 6px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--app-primary);
+  box-shadow: 0 0 0 4px var(--app-primary-soft);
+}
+
+.page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.muted {
+  color: var(--app-text-soft);
+}
+
+.mono {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+.el-card {
+  --el-card-border-color: var(--app-border);
+  --el-card-border-radius: 8px;
+  --el-card-padding: 18px;
+}
+
+.el-button {
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.el-button--primary {
+  --el-button-bg-color: var(--app-primary);
+  --el-button-border-color: var(--app-primary);
+  --el-button-hover-bg-color: var(--app-primary-dark);
+  --el-button-hover-border-color: var(--app-primary-dark);
+  --el-button-active-bg-color: var(--app-primary-dark);
+  --el-button-active-border-color: var(--app-primary-dark);
+}
+
+.el-button--primary.is-plain {
+  --el-button-bg-color: var(--app-primary-soft);
+  --el-button-border-color: #b7d2c8;
+  --el-button-text-color: var(--app-primary-dark);
+  --el-button-hover-bg-color: var(--app-primary);
+  --el-button-hover-border-color: var(--app-primary);
+}
+
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper {
+  box-shadow: 0 0 0 1px var(--app-border) inset;
+}
+
+.el-input__wrapper:hover,
+.el-textarea__inner:hover,
+.el-select__wrapper:hover {
+  box-shadow: 0 0 0 1px var(--app-border-strong) inset;
+}
+
+.el-input__wrapper.is-focus,
+.el-select__wrapper.is-focused,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px var(--app-primary) inset;
+}
+
+.el-table {
+  --el-table-header-bg-color: #f6faf8;
+  --el-table-header-text-color: #40564f;
+  --el-table-border-color: #e8efec;
+  --el-table-row-hover-bg-color: #f4faf7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.el-dialog,
+.el-message-box {
+  border-radius: 8px;
+}
